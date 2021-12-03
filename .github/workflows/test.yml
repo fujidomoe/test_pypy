@@ -25,5 +25,9 @@ jobs:
         echo "$HOME/.local/bin" >> $GITHUB_PATH
     - name: Install Dependencies
       run: poetry install --no-interaction
+    - uses: actions/cache@v2
+      with:
+        path: flow/.venv
+        key: python-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
     - name: Run Tests
       run: make test
